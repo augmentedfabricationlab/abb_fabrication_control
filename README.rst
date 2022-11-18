@@ -16,75 +16,66 @@ abb_fabrication_control: ABB Fabrication Control
 
 .. Write project description
 
-**A short description of the project** ...
+**A general fabrication control module for the ABB robots.**
 
-
-Main features
--------------
-
-* feature
-* feature
-* more features
-
-**abb_fabrication_control** runs on Python x.x and x.x.
-
-
-Documentation
--------------
-
-.. Explain how to access documentation: API, examples, etc.
-
-..
-.. optional sections:
+**Quick links:** [compas docs](https://compas-dev.github.io/main/) | [compas_fab docs](https://gramaziokohler.github.io/compas_fab/latest/) | [compas_rrc_docs](https://compas-rrc.github.io/compas_rrc/latest/reference/index.html) | [rrc github repository](https://github.com/compas-rrc/compas_rrc) | [overview compas extensions](https://compas.dev/extensions.html) | [urdf and moveit tutorials](https://gramaziokohler.github.io/compas_fab/latest/examples/03_backends_ros/07_ros_create_urdf_ur5_with_measurement_tool.html) | [troubleshooting](#docker-troubleshooting)
 
 Requirements
 ------------
 
-.. Write requirements instructions here
+* Operating System: **Windows 10 Pro** <sup>(1)</sup>.
+* [Rhinoceros 3D 7.0](https://www.rhino3d.com/)
+* [Anaconda Python Distribution](https://www.anaconda.com/download/): 3.x
+* [Docker Community Edition](https://www.docker.com/get-started): Download it for [Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows). Leave "switch Linux containers to Windows containers" disabled.
+* Git: [official command-line client](https://git-scm.com/) or visual GUI (e.g. [Github Desktop](https://desktop.github.com/) or [SourceTree](https://www.sourcetreeapp.com/))
+* [ABB RobotStudio](https://new.abb.com/products/robotics/robotstudio/downloads): 6.08 (only available for Windows). After install, **make sure you add the latest RobotWare, 6.12.00 or newer** (`Add-Ins` -> `RobotApps` -> `Filter for RobotWare` and add the version `6.12.00` or newer in the drop-down menu to the right). Please find further instructions for the installation [here](README_ROBOTSTUDIO.md).
+* [VS Code](https://code.visualstudio.com/) with the following `Extensions`:
+  * `Python` (official extension)
+  * `Docker` (official extension, optional)
 
+<sup>(1): Windows 10 Home does not support running Docker.</sup>
 
-Installation
+Dependencies
 ------------
 
-.. Write installation instructions here
+* [COMPAS RRC](https://github.com/compas-rrc/compas_rrc)
 
-
-Contributing
+Getting Started
 ------------
 
-Make sure you setup your local development environment correctly:
+### 1. Setting up the Anaconda environment with all dependencies
 
-* Clone the `abb_fabrication_control <https://github.com/augmentedfabricationlab/abb_fabrication_control>`_ repository.
-* Install development dependencies and make the project accessible from Rhino:
+Execute the commands below in Anaconda Prompt:
 
-::
+#### Install Compas & Compas Fab
+ 
+    (base) conda config --add channels conda-forge
+    (base) conda create -n afc compas_fab --yes
+    (base) conda activate afc
 
-    pip install -r requirements-dev.txt
-    invoke add-to-rhino
+#### Install Compas RRC
 
-**You're ready to start working!**
+    (ffc) conda install compas_rrc
+    
+#### Install on Rhino
+    
+    (ffc) python -m compas_rhino.install -v 7.0
+    
+#### Verify Installation
 
-During development, use tasks on the
-command line to ease recurring operations:
+    (ffc) pip show compas_fab
+    
+    Name: compas-fab
+    Version: 0.XX.X
+    Summary: Robotic fabrication package for the COMPAS Framework
+    ....
+    
+### 2. Cloning and installing the repository
 
-* ``invoke clean``: Clean all generated artifacts.
-* ``invoke check``: Run various code and documentation style checks.
-* ``invoke docs``: Generate documentation.
-* ``invoke test``: Run all tests and checks in one swift command.
-* ``invoke add-to-rhino``: Make the project accessible from Rhino.
-* ``invoke``: Show available tasks.
+#### Repository Cloning
 
-For more details, check the `Contributor's Guide <CONTRIBUTING.rst>`_.
-
-
-Releasing this project
-----------------------
-
-.. Write releasing instructions here
-
-
-.. end of optional sections
-..
+* Create a workspace directory: C:\Users\YOUR_USERNAME\workspace
+* Open Github Desktop and clone the repository [this repository](https://github.com/augmentedfabricationlab/afc_fabrication_control) into you workspace folder.
 
 Credits
 -------------
