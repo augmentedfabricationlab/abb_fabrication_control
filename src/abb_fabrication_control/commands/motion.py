@@ -3,40 +3,70 @@ from compas.robots import Joint
 import compas_rrc as rrc
 import math
 
-def move_to_frame(robot, frame, speed=250, zone=rrc.Zone.FINE, scalefactor=1000):
+__all__ = ["move_to_frame",
+           "move_to_robtarget",
+           "move_to_joints"]
+
+def move_to_frame(robot, frame, speed=250, zone=rrc.Zone.FINE,
+                  scalefactor=1000, send_and_wait=False):
     """
     Move to frame is a function that moves the robot in cartesian space.
     Converts m to mm.
     """
-    S = Scale.from_factors([scalefactor] * 3) #scale frame from m to mm
+    # Scale frame from m to mm
+    S = Scale.from_factors([scalefactor] * 3)
     frame.transform(S)
-    robot.abb_client.send(rrc.MoveToFrame(frame, speed, zone)) #send command to robot
+    if send_and_wait:
+        # Send command to robot
+        robot.abb_client.send_and_wait(rrc.MoveToFrame(frame, speed, zone))
+    else:
+        # Send command to robot
+        robot.abb_client.send(rrc.MoveToFrame(frame, speed, zone))
 
-def move_to_robtarget(robot, frame, cart, speed=250, zone=rrc.Zone.FINE, scalefactor=1000):
+def move_to_robtarget(robot, frame, cart, speed=250, zone=rrc.Zone.FINE,
+                      scalefactor=1000, send_and_wait=False):
     """
-    send move to robtarget command to robot in m to mm conversion
+    Move to robtarget is a call that moves the robot in cartesian space with explicit external axes values, which in this case are the cart values.
+    Converts m to mm.
     """
-    S = Scale.from_factors([scalefactor] * 3) #scale frame from m to mm
+    # Scale frame from m to mm
+    S = Scale.from_factors([scalefactor] * 3)
     frame.transform(S)
-    cart = cart*scalefactor #scale cart
+    # Scale cart
+    cart = cart*scalefactor
     ext_axes = rrc.ExternalAxes([cart])
-    robot.abb_client.send(rrc.MoveToRobtarget(frame, ext_axes, speed, zone)) #send command to robot
+    if send_and_wait:
+        # Send command to robot
+        robot.abb_client.send_and_wait(rrc.MoveToRobtarget(frame, ext_axes, speed, zone))
+    else:
+        # Send command to robot
+        robot.abb_client.send(rrc.MoveToRobtarget(frame, ext_axes, speed, zone))
 
-def move_to_joints(robot, configuration, speed=250, zone=rrc.Zone.FINE):
+def move_to_joints(robot, configuration, speed=250, zone=rrc.Zone.FINE,
+                   scalefactor=1000, send_and_wait=False):
     """
     Move to joints is a function that moves the robot and the external axes with axes values.
     """
-    joints = [] # store joint values in degree from configuration
+    # Store joint values in degree from configuration
+    joints = []
     for i, joint_type in enumerate(configuration.joint_types):
         if joint_type == Joint.REVOLUTE:
             joints.append(math.degrees(configuration.joint_values[i]))
     joints = rrc.RobotJoints(joints)
+    
+    # If there are more than the robot joint axes, add them as the external axes.
+    if (len(configuration.joint_values) > 6): 
+        # Store cart values from configuration in m
+        cart = (configuration.joint_values[0])
+        # Scale cart value in mm
+        cart = cart*scalefactor
+        cart = rrc.ExternalAxes(cart)
+    else:
+        cart = []
 
-    cart = [] # store cart values from configuration in m
-    #cart = (configuration.joint_values[0]) # store cart values from configuration in m
-    #cart = cart*scalefactor #scale cart value in mm
-    #cart = rrc.ExternalAxes(cart)
-
-    robot.abb_client.send(rrc.MoveToJoints(joints, cart, speed, zone)) # send joints and cart values to robot
-
-
+    if send_and_wait:
+        # Send joints and cart values to robot
+        robot.abb_client.send_and_wait(rrc.MoveToJoints(joints, cart, speed, zone))
+    else:
+        # Send joints and cart values to robot
+        robot.abb_client.send(rrc.MoveToJoints(joints, cart, speed, zone))
