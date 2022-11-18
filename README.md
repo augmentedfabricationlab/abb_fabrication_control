@@ -36,15 +36,15 @@ Execute the commands below in Anaconda Prompt:
 
 #### Install Compas RRC
 
-    (ffc) conda install compas_rrc
+    (afc) conda install compas_rrc
     
 #### Install on Rhino
     
-    (ffc) python -m compas_rhino.install -v 7.0
+    (afc) python -m compas_rhino.install -v 7.0
     
 #### Verify Installation
 
-    (ffc) pip show compas_fab
+    (afc) pip show compas_fab
     
     Name: compas-fab
     Version: 0.XX.X
@@ -53,10 +53,16 @@ Execute the commands below in Anaconda Prompt:
     
 ### 2. Cloning and installing the repository
 
-#### Repository Cloning
+#### Cloning the repository
 
 * Create a workspace directory: C:\Users\YOUR_USERNAME\workspace
-* Open Github Desktop and clone the repository [this repository](https://github.com/augmentedfabricationlab/afc_fabrication_control) into you workspace folder.
+* Open Github Desktop and clone the repository [this repository](https://github.com/augmentedfabricationlab/abb_fabrication_control) into you workspace folder.
+
+#### Installing the repository
+
+* Install the repository in editable mode.
+    (afc) python -m pip install -e <your_path>/<your_repository_name>
+    (afc) python -m compas_rhino.install -p abb_fabrication_control -v 7.0
 
 Credits
 -------------
