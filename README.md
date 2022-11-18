@@ -1,27 +1,10 @@
-============================================================
-ABB Fabrication Control
-============================================================
+# ABB Fabrication Control
 
-.. start-badges
-
-.. image:: https://img.shields.io/badge/License-MIT-blue.svg
-    :target: https://github.com/augmentedfabricationlab/abb_fabrication_control/blob/master/LICENSE
-    :alt: License MIT
-
-.. image:: https://travis-ci.org/augmentedfabricationlab/abb_fabrication_control.svg?branch=master
-    :target: https://travis-ci.org/augmentedfabricationlab/abb_fabrication_control
-    :alt: Travis CI
-
-.. end-badges
-
-.. Write project description
-
-**A general fabrication control module for the ABB robots.**
+#### A general fabrication control module for the ABB robots.
 
 **Quick links:** [compas docs](https://compas-dev.github.io/main/) | [compas_fab docs](https://gramaziokohler.github.io/compas_fab/latest/) | [compas_rrc_docs](https://compas-rrc.github.io/compas_rrc/latest/reference/index.html) | [rrc github repository](https://github.com/compas-rrc/compas_rrc) | [overview compas extensions](https://compas.dev/extensions.html) | [urdf and moveit tutorials](https://gramaziokohler.github.io/compas_fab/latest/examples/03_backends_ros/07_ros_create_urdf_ur5_with_measurement_tool.html) | [troubleshooting](#docker-troubleshooting)
 
-Requirements
-------------
+## Requirements
 
 * Operating System: **Windows 10 Pro** <sup>(1)</sup>.
 * [Rhinoceros 3D 7.0](https://www.rhino3d.com/)
@@ -35,13 +18,11 @@ Requirements
 
 <sup>(1): Windows 10 Home does not support running Docker.</sup>
 
-Dependencies
-------------
+## Dependencies
 
 * [COMPAS RRC](https://github.com/compas-rrc/compas_rrc)
 
-Getting Started
-------------
+## Getting Started
 
 ### 1. Setting up the Anaconda environment with all dependencies
 
