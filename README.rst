@@ -1,5 +1,5 @@
 ============================================================
-abb_fabrication_control: ABB Fabrication Control
+ABB Fabrication Control
 ============================================================
 
 .. start-badges
