@@ -53,18 +53,16 @@ Execute the commands below in Anaconda Prompt:
     
 ### 2. Cloning and installing the repository
 
-#### Cloning the repository
+#### Clone the repository
 
 * Create a workspace directory: C:\Users\YOUR_USERNAME\workspace
 * Open Github Desktop and clone the repository [this repository](https://github.com/augmentedfabricationlab/abb_fabrication_control) into you workspace folder.
 
-#### Installing the repository
+#### Install the repository in editable mode
 
-* Install the repository in editable mode.
     (afc) python -m pip install -e <your_path>/<your_repository_name>
     (afc) python -m compas_rhino.install -p abb_fabrication_control -v 7.0
 
-Credits
--------------
+## Credits
 
 This package was created by Lidia Atanasova <lidia.atanasova@tum.de> `@lidiatanasova <https://github.com/lidiatanasova>`_ at `@augmentedfabricationlab <https://github.com/augmentedfabricationlab>`_
