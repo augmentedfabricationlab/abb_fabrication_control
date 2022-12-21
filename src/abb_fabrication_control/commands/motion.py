@@ -7,7 +7,7 @@ __all__ = ["move_to_frame",
            "move_to_robtarget",
            "move_to_joints"]
 
-def move_to_frame(robot, frame, speed=250, zone=rrc.Zone.FINE,
+def move_to_frame(robot, frame, speed=250, zone=rrc.Zone.FINE, motion_type='J',
                   scalefactor=1000, send_and_wait=False):
     """
     Move to frame is a function that moves the robot in cartesian space.
@@ -18,10 +18,10 @@ def move_to_frame(robot, frame, speed=250, zone=rrc.Zone.FINE,
     frame.transform(S)
     if send_and_wait:
         # Send command to robot
-        robot.abb_client.send_and_wait(rrc.MoveToFrame(frame, speed, zone))
+        robot.abb_client.send_and_wait(rrc.MoveToFrame(frame, speed, zone, motion_type))
     else:
         # Send command to robot
-        robot.abb_client.send(rrc.MoveToFrame(frame, speed, zone))
+        robot.abb_client.send(rrc.MoveToFrame(frame, speed, zone, motion_type))
 
 def move_to_robtarget(robot, frame, cart, speed=250, zone=rrc.Zone.FINE,
                       scalefactor=1000, send_and_wait=False):
@@ -53,9 +53,9 @@ def move_to_joints(robot, configuration, speed=250, zone=rrc.Zone.FINE,
         if joint_type == Joint.REVOLUTE:
             joints.append(math.degrees(configuration.joint_values[i]))
     joints = rrc.RobotJoints(joints)
-    
+
     # If there are more than the robot joint axes, add them as the external axes.
-    if (len(configuration.joint_values) > 6): 
+    if (len(configuration.joint_values) > 6):
         # Store cart values from configuration in m
         cart = (configuration.joint_values[0])
         # Scale cart value in mm

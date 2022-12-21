@@ -1,4 +1,5 @@
 import compas_rrc as rrc
+from compas.robots import Configuration
 from compas.geometry import Scale
 
 def get_frame(robot, scalefactor=0.001):
@@ -24,8 +25,21 @@ def get_joints(robot):
     """
     send get joints command to receive robot's joint configuration
     """
+
     joints, external_axes = robot.abb_client.send_and_wait(rrc.GetJoints())
     ext_val = external_axes.values + joints.values
     axes = rrc.ExternalAxes(ext_val)
     configuration = axes.to_configuration(robot)
     return (configuration)
+
+    # robot_joints, external_axes = robot.abb_client.send_and_wait(rrc.GetJoints())
+    # joint_values = external_axes.values + joints.values
+    # configuration = joint_values.to_configuration(robot)
+    # return (configuration)
+
+
+
+
+
+
+
