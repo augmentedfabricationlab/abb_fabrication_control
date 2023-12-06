@@ -8,7 +8,7 @@ __all__ = ["move_to_frame",
            "move_to_joints"]
 
 def move_to_frame(robot, frame, speed=250, zone=rrc.Zone.FINE, motion_type='J',
-                  scalefactor=1000, send_and_wait=False):
+                  scalefactor=1000, feedback_level=0, send_and_wait=False):
     """
     Move to frame is a function that moves the robot in cartesian space.
     Converts m to mm.
@@ -18,12 +18,12 @@ def move_to_frame(robot, frame, speed=250, zone=rrc.Zone.FINE, motion_type='J',
     frame.transform(S)
     if send_and_wait:
         # Send command to robot
-        return robot.abb_client.send_and_wait(rrc.MoveToFrame(frame, speed, zone, motion_type))
+        return robot.abb_client.send_and_wait(rrc.MoveToFrame(frame, speed, zone, motion_type, feedback_level=feedback_level))
     else:
         # Send command to robot
-        return robot.abb_client.send(rrc.MoveToFrame(frame, speed, zone, motion_type))
+        return robot.abb_client.send(rrc.MoveToFrame(frame, speed, zone, motion_type, feedback_level=feedback_level))
 
-def move_to_robtarget(robot, frame, cart, speed=250, zone=rrc.Zone.FINE,
+def move_to_robtarget(robot, frame, cart, speed=250, zone=rrc.Zone.FINE, motion_type='J',
                       scalefactor=1000, feedback_level=0, send_and_wait=False):
     """
     Move to robtarget is a call that moves the robot in cartesian space with explicit external axes values, which in this case are the cart values.
@@ -37,13 +37,13 @@ def move_to_robtarget(robot, frame, cart, speed=250, zone=rrc.Zone.FINE,
     ext_axes = rrc.ExternalAxes([cart])
     if send_and_wait:
         # Send command to robot
-        return robot.abb_client.send_and_wait(rrc.MoveToRobtarget(frame, ext_axes, speed, zone, feedback_level=feedback_level))
+        return robot.abb_client.send_and_wait(rrc.MoveToRobtarget(frame, ext_axes, speed, zone, motion_type, feedback_level=feedback_level))
     else:
         # Send command to robot
-        return robot.abb_client.send(rrc.MoveToRobtarget(frame, ext_axes, speed, zone, feedback_level=feedback_level))
+        return robot.abb_client.send(rrc.MoveToRobtarget(frame, ext_axes, speed, zone, motion_type, feedback_level=feedback_level))
 
 def move_to_joints(robot, configuration, speed=250, zone=rrc.Zone.FINE,
-                   scalefactor=1000, send_and_wait=False):
+                   scalefactor=1000, feedback_level=0, send_and_wait=False):
     """
     Move to joints is a function that moves the robot and the external axes with axes values.
     """
@@ -66,7 +66,7 @@ def move_to_joints(robot, configuration, speed=250, zone=rrc.Zone.FINE,
 
     if send_and_wait:
         # Send joints and cart values to robot
-        return robot.abb_client.send_and_wait(rrc.MoveToJoints(joints, cart, speed, zone))
+        return robot.abb_client.send_and_wait(rrc.MoveToJoints(joints, cart, speed, zone, feedback_level=feedback_level))
     else:
         # Send joints and cart values to robot
-        return robot.abb_client.send(rrc.MoveToJoints(joints, cart, speed, zone))
+        return robot.abb_client.send(rrc.MoveToJoints(joints, cart, speed, zone, feedback_level=feedback_level))
