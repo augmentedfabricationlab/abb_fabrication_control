@@ -1,11 +1,7 @@
-from compas.geometry import Frame
-from compas_ghpython.artists import FrameArtist
+from compas.geometry import Frame, Line
 
-def plane_to_frame(plane):
-    frame = Frame(plane.Origin, plane.XAxis, plane.YAxis)
-    return frame
-
-
-def frame_to_plane(frame):
-    plane = FrameArtist(frame).draw()
-    return plane
+def radius_between_frames(from_frame, via_frame, to_frame, max_radius):
+        in_line = Line(from_frame.point, via_frame.point)
+        out_line = Line(via_frame.point, to_frame.point)
+        radius_between_frames = min(max_radius, in_line.length/2, out_line.length/2)
+        return radius_between_frames

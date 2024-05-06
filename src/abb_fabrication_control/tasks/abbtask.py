@@ -4,6 +4,7 @@ import abb_fabrication_control as abbfc
 from compas.geometry import Frame
 import compas_rrc as rrc
 
+
 class ABBTask(Task):
     def __init__(self, robot, key):
         super(ABBTask, self).__init__(key)

@@ -1,6 +1,8 @@
 import compas_rrc as rrc
-from compas.robots import Configuration
-from compas.geometry import Scale
+from compas_robots import Configuration
+from compas.geometry import Frame, Transformation, Scale
+
+
 
 def get_frame(robot, scalefactor=0.001):
     """

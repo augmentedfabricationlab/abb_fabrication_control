@@ -1,25 +1,11 @@
-"""
+from .motion import print_text, set_tool, move_to_frame, move_to_robtarget, move_to_joints
+from .feedback import get_frame, get_robtarget, get_joints
 
-Intro to project ...
-
-
-Setup
-=====
-
-In order to use this library, ...
-
-
-Main concepts
-=============
-
-Describe typical classes found in project
-
-.. autoclass:: SampleClassName
-   :members:
-
-
-"""
-
-from .motion import *
-from .feedback import *
-from .communication import *
+__all__ = ["print_text",
+           "set_tool",
+           "move_to_frame",
+           "move_to_robtarget",
+           "move_to_joints",
+           "get_frame",
+           "get_robtarget",
+           "get_joints"]
