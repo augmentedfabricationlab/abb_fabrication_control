@@ -3,7 +3,6 @@ from compas_robots import Configuration
 from compas.geometry import Frame, Transformation, Scale
 
 
-
 def get_frame(robot, scalefactor=0.001):
     """
     send get frame command to receive robot's frame in mm to m conversation
@@ -11,6 +10,7 @@ def get_frame(robot, scalefactor=0.001):
     frame = robot.abb_client.send_and_wait(rrc.GetFrame())
     S = Scale.from_factors([scalefactor] * 3)
     frame.transform(S)
+    
     return (frame)
 
 def get_robtarget(robot, scalefactor=0.001):
@@ -21,17 +21,22 @@ def get_robtarget(robot, scalefactor=0.001):
     S = Scale.from_factors([scalefactor] * 3) #scale robot frame from mm in m
     frame.transform(S)
     cart = rrc.ExternalAxes(external_axes.values[0]*scalefactor) #store robot cart value in mm to m conversion
+    
     return (frame, cart)
 
-def get_joints(robot):
+def get_joints(robot, scalefactor=0.001):
     """
-    send get joints command to receive robot's joint configuration
+    send get joints command to receive robot's joint configuration and external axes in mm to m conversation
     """
 
     joints, external_axes = robot.abb_client.send_and_wait(rrc.GetJoints())
+    
+    external_axes.values[0] = external_axes.values[0]*scalefactor
+    
     ext_val = external_axes.values + joints.values
     axes = rrc.ExternalAxes(ext_val)
     configuration = axes.to_configuration(robot)
+    
     return (configuration)
 
     # robot_joints, external_axes = robot.abb_client.send_and_wait(rrc.GetJoints())

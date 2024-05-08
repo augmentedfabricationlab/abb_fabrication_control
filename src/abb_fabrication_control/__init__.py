@@ -21,8 +21,10 @@ Describe typical classes found in project
 """
 
 from .sample_module import SampleClassName
+from .commands import basics
+from .commands import input_output
 from .commands import motion
-from .commands import feedback
+from .commands import position
 from .utilities import utilities
 
 __all__ = ['SampleClassName']
