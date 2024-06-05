@@ -15,12 +15,14 @@ def close_gripper(robot, send_and_wait=False):
     """ Send signal to open the gripper
     """
     set_digital_out(robot, 'Ausgang_100_3', output_state=0, send_and_wait=send_and_wait)
-    return set_digital_out(robot, 'Ausgang_100_5', output_state=1, send_and_wait=send_and_wait)
+    set_digital_out(robot, 'Ausgang_100_5', output_state=1, send_and_wait=send_and_wait)
+    return robot.abb_client.send(rrc.WaitTime(0.5))
 
 
 def open_gripper(robot, send_and_wait=False):
     """ Send signal to open the gripper
     """
     set_digital_out(robot, 'Ausgang_100_3', output_state=1, send_and_wait=send_and_wait)
-    return set_digital_out(robot, 'Ausgang_100_5', output_state=0, send_and_wait=send_and_wait)
+    set_digital_out(robot, 'Ausgang_100_5', output_state=0, send_and_wait=send_and_wait)
+    return robot.abb_client.send(rrc.WaitTime(0.5))
 
