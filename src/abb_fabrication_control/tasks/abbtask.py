@@ -66,20 +66,20 @@ class PickTask(ABBTask):
         
         # Moves to approach frame
         approach_frame = self.pick_frame.transformed(T)
-        abbfc.commands.motion.move_to_robtarget(self.robot, approach_frame, send_and_wait = True)
+        abbfc.commands.motion.move_to_frame(self.robot, approach_frame)
         self.log("robot moved to approach frame") 
 
         # Moves to pick frame
-        abbfc.commands.motion.move_to_robtarget(self.robot, self.pick_frame, send_and_wait = True)
+        abbfc.commands.motion.move_to_frame(self.robot, self.pick_frame)
         self.log("robot moved to pick frame")  
 
         # Closes the gripper
-        abbfc.commands.input_output.close_gripper(self.robot, send_and_wait = False)
+        abbfc.commands.input_output.close_gripper(self.robot)
         self.log("gripper closed")
 
         # Moves to approach frame
         approach_frame = self.pick_frame.transformed(T)
-        abbfc.commands.motion.move_to_robtarget(self.robot, approach_frame, send_and_wait = True)
+        abbfc.commands.motion.move_to_frame(self.robot, approach_frame)
         self.log("robot moved to approach frame") 
 
         future = self.robot.abb_client.send(rrc.PrintText("Picking brick done", feedback_level=1))
@@ -95,20 +95,20 @@ class PlaceTask(ABBTask):
         
         # Moves to approach frame
         approach_frame = self.place_frame.transformed(T)
-        abbfc.commands.motion.move_to_robtarget(self.robot, approach_frame, send_and_wait = True)
+        abbfc.commands.motion.move_to_frame(self.robot, approach_frame)
         self.log("robot moved to approach frame") 
 
         # Moves to place frame
-        abbfc.commands.motion.move_to_joints(self.robot, self.place_frame, send_and_wait = True)
+        abbfc.commands.motion.move_to_frame(self.robot, self.place_frame)
         self.log("robot moved to pick frame")  
 
         # Opens the gripper
-        abbfc.commands.input_output.open_gripper(self.robot, send_and_wait = False)
+        abbfc.commands.input_output.open_gripper(self.robot)
         self.log("gripper closed")
 
         # Moves to approach frame
         approach_frame = self.pick_frame.transformed(T)
-        abbfc.commands.motion.move_to_robtarget(self.robot, approach_frame, send_and_wait = True)
+        abbfc.commands.motion.move_to_frame(self.robot, approach_frame)
         self.log("robot moved to approach frame") 
 
         future = self.robot.abb_client.send(rrc.PrintText("Placing brick done", feedback_level=1))

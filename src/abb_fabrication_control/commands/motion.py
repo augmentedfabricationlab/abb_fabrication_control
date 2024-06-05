@@ -2,7 +2,6 @@ import compas_rrc as rrc
 from compas_robots import Configuration
 from compas_robots.model import Joint
 from compas.geometry import Frame, Transformation, Scale
-
 import math
 
 def move_to_frame(robot, frame, speed=250, zone=rrc.Zone.FINE, motion_type='J',
