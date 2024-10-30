@@ -15,4 +15,7 @@ __all__ = ["print_text",
            "get_joints",
            "set_digital_out",
            "open_gripper",
-           "close_gripper"]
+           "close_gripper",
+           "enable_gun",
+           "disable_gun",
+           "trigger_gun"]
