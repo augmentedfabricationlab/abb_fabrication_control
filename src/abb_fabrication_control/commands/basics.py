@@ -1,5 +1,16 @@
 import compas_rrc as rrc
 
+
+def robot_wait_time(robot, time, send_and_wait=False):
+    """ Send "wait time" command to the ABB robot controller
+    """
+    if send_and_wait:
+        # Send command to the ABB controller and wait for feedback
+        return robot.abb_client.send_and_wait(rrc.WaitTime(time))
+    else:
+        # Send command to the ABB controller without waiting for feedback
+        return robot.abb_client.send(rrc.WaitTime(time))
+
 def print_text(robot, text_msg, send_and_wait=False):
     """ Send text to the ABB robot flex pendant for printout.
     """
