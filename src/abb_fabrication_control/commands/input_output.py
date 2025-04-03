@@ -40,9 +40,9 @@ def disable_gun(robot, send_and_wait=False):
 def trigger_gun(robot, send_and_wait=False):
     """ Send signal to trigger the gun
     """
-    set_digital_out(robot, 'Ausgang_100_7', output_state=1, send_and_wait=send_and_wait)
+    set_digital_out(robot, 'Ausgang_100_4', output_state=1, send_and_wait=send_and_wait)
     robot.abb_client.send(rrc.WaitTime(1))
-    set_digital_out(robot, 'Ausgang_100_7', output_state=0, send_and_wait=send_and_wait)
+    set_digital_out(robot, 'Ausgang_100_4', output_state=0, send_and_wait=send_and_wait)
     return robot.abb_client.send(rrc.WaitTime(0.5))
 
 
