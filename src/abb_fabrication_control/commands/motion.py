@@ -11,11 +11,11 @@ def move_to_frame(robot, frame, speed=250, zone=rrc.Zone.FINE, motion_type='J',
     """
     # Scale frame from m to mm
     S = Scale.from_factors([scalefactor] * 3)
-    frame.transform(S)
+    tool_frame = frame.transformed(S)
 
     if send_and_wait:
         # Send command to the ABB controller and wait for feedback
-        return robot.abb_client.send_and_wait(rrc.MoveToFrame(frame, speed, zone, motion_type, feedback_level=feedback_level))
+        return robot.abb_client.send_and_wait(rrc.MoveToFrame(tool_frame, speed, zone, motion_type, feedback_level=feedback_level))
     else:
         # Send command to the ABB controller without waiting for feedback
         return robot.abb_client.send(rrc.MoveToFrame(frame, speed, zone, motion_type, feedback_level=feedback_level))
@@ -28,7 +28,7 @@ def move_to_robtarget(robot, frame, cart, speed=250, zone=rrc.Zone.FINE, motion_
 
     # Scale target frame from m to mm
     S = Scale.from_factors([scalefactor] * 3)
-    frame.transform(S)
+    tool_frame = frame.transformed(S)
 
     # Scale cart value from m to mm
     cart = cart*scalefactor
@@ -36,10 +36,10 @@ def move_to_robtarget(robot, frame, cart, speed=250, zone=rrc.Zone.FINE, motion_
 
     if send_and_wait:
         # Send command to the ABB controller and wait for feedback
-        return robot.abb_client.send_and_wait(rrc.MoveToRobtarget(frame, ext_axis, speed, zone, motion_type, feedback_level=feedback_level))
+        return robot.abb_client.send_and_wait(rrc.MoveToRobtarget(tool_frame, ext_axis, speed, zone, motion_type, feedback_level=feedback_level))
     else:
         # Send command to the ABB controller without waiting for feedback Send command to robot
-        return robot.abb_client.send(rrc.MoveToRobtarget(frame, ext_axis, speed, zone, motion_type, feedback_level=feedback_level))
+        return robot.abb_client.send(rrc.MoveToRobtarget(tool_frame, ext_axis, speed, zone, motion_type, feedback_level=feedback_level))
 
 def move_to_joints(robot, configuration, speed=250, zone=rrc.Zone.FINE,
                    scalefactor=1000, feedback_level=0, send_and_wait=False):
