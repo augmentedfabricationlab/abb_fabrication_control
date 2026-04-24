@@ -10,7 +10,7 @@ def get_frame(robot, scalefactor=0.001):
     frame = robot.abb_client.send_and_wait(rrc.GetFrame(), timeout=1)
     S = Scale.from_factors([scalefactor] * 3)
     frame.transform(S)
-    
+
     return (frame)
 
 def get_robtarget(robot, scalefactor=0.001):
@@ -21,7 +21,7 @@ def get_robtarget(robot, scalefactor=0.001):
     S = Scale.from_factors([scalefactor] * 3) #scale robot frame from mm in m
     frame.transform(S)
     cart = rrc.ExternalAxes(external_axes.values[0]*scalefactor) #store robot cart value in mm to m conversion
-    
+
     return (frame, cart)
 
 def get_joints(robot, scalefactor=0.001):
@@ -34,14 +34,11 @@ def get_joints(robot, scalefactor=0.001):
 
     if external_axes.values:
         ext_axes = external_axes.to_configuration(robot)
-        return (configuration, ext_axes)    
-    
+        return (configuration, ext_axes)
+
     return (configuration)
 
-    # robot_joints, external_axes = robot.abb_client.send_and_wait(rrc.GetJoints())
-    # joint_values = external_axes.values + joints.values
-    # configuration = joint_values.to_configuration(robot)
-    # return (configuration)
+
 
 
 
