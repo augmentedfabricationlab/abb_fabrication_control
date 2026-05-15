@@ -4,7 +4,7 @@ from compas_robots.model import Joint
 from compas.geometry import Frame, Transformation, Scale
 import math
 
-def move_to_frame(robot, frame, speed=250, zone=rrc.Zone.FINE, motion_type='J',
+def move_to_frame(abb_client, frame, speed=250, zone=rrc.Zone.FINE, motion_type='J',
                   scalefactor=1000, feedback_level=0, send_and_wait=False):
     """ Send "move to frame" command to the ABB robot controller, which moves the robot in cartesian space.
     Converts m to mm.
@@ -15,12 +15,12 @@ def move_to_frame(robot, frame, speed=250, zone=rrc.Zone.FINE, motion_type='J',
 
     if send_and_wait:
         # Send command to the ABB controller and wait for feedback
-        return robot.abb_client.send_and_wait(rrc.MoveToFrame(tool_frame, speed, zone, motion_type, feedback_level=feedback_level))
+        return abb_client.send_and_wait(rrc.MoveToFrame(tool_frame, speed, zone, motion_type, feedback_level=feedback_level))
     else:
         # Send command to the ABB controller without waiting for feedback
-        return robot.abb_client.send(rrc.MoveToFrame(frame, speed, zone, motion_type, feedback_level=feedback_level))
+        return abb_client.send(rrc.MoveToFrame(frame, speed, zone, motion_type, feedback_level=feedback_level))
 
-def move_to_robtarget(robot, frame, cart, speed=250, zone=rrc.Zone.FINE, motion_type='J',
+def move_to_robtarget(abb_client, frame, cart, speed=250, zone=rrc.Zone.FINE, motion_type='J',
                       scalefactor=1000, feedback_level=0, send_and_wait=False):
     """ Send "move to robtarget" command to the ABB robot controller, which moves the robot in cartesian space, including explicit external axes values (cart)
     Converts m to mm.
@@ -36,12 +36,12 @@ def move_to_robtarget(robot, frame, cart, speed=250, zone=rrc.Zone.FINE, motion_
 
     if send_and_wait:
         # Send command to the ABB controller and wait for feedback
-        return robot.abb_client.send_and_wait(rrc.MoveToRobtarget(tool_frame, ext_axis, speed, zone, motion_type, feedback_level=feedback_level))
+        return abb_client.send_and_wait(rrc.MoveToRobtarget(tool_frame, ext_axis, speed, zone, motion_type, feedback_level=feedback_level))
     else:
         # Send command to the ABB controller without waiting for feedback Send command to robot
-        return robot.abb_client.send(rrc.MoveToRobtarget(tool_frame, ext_axis, speed, zone, motion_type, feedback_level=feedback_level))
+        return abb_client.send(rrc.MoveToRobtarget(tool_frame, ext_axis, speed, zone, motion_type, feedback_level=feedback_level))
 
-def move_to_joints(robot, configuration, speed=250, zone=rrc.Zone.FINE,
+def move_to_joints(abb_client, configuration, speed=250, zone=rrc.Zone.FINE,
                    scalefactor=1000, feedback_level=0, send_and_wait=False):
     """ Send "move to joints" command to the ABB robot controller, which moves the robot in joint space, including explicit external axes values (cart)
     Converts radian to degrees.
@@ -71,7 +71,7 @@ def move_to_joints(robot, configuration, speed=250, zone=rrc.Zone.FINE,
 
     if send_and_wait:
         # Send joints and cart values to robot
-        return robot.abb_client.send_and_wait(rrc.MoveToJoints(joints, cart, speed, zone, feedback_level=feedback_level))
+        return abb_client.send_and_wait(rrc.MoveToJoints(joints, cart, speed, zone, feedback_level=feedback_level))
     else:
         # Send joints and cart values to robot
-        return robot.abb_client.send(rrc.MoveToJoints(joints, cart, speed, zone, feedback_level=feedback_level))
+        return abb_client.send(rrc.MoveToJoints(joints, cart, speed, zone, feedback_level=feedback_level))
