@@ -18,7 +18,7 @@ def move_to_frame(robot, frame, speed=250, zone=rrc.Zone.FINE, motion_type='J',
         return robot.abb_client.send_and_wait(rrc.MoveToFrame(tool_frame, speed, zone, motion_type, feedback_level=feedback_level))
     else:
         # Send command to the ABB controller without waiting for feedback
-        return robot.abb_client.send(rrc.MoveToFrame(frame, speed, zone, motion_type, feedback_level=feedback_level))
+        return robot.abb_client.send(rrc.MoveToFrame(tool_frame, speed, zone, motion_type, feedback_level=feedback_level))
 
 def move_to_robtarget(robot, frame, cart, speed=250, zone=rrc.Zone.FINE, motion_type='J',
                       scalefactor=1000, feedback_level=0, send_and_wait=False):
